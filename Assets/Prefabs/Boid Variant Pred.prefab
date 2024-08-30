@@ -43,12 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586229fc2724b0a4d8eb4eec530d22a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1
+  weight: 3
   drawGizmos: 1
   enabledBehavior: 1
+  prey: []
+  pred: []
   boid: {fileID: 0}
-  enemyBoid: {fileID: 6654152035782178633, guid: 8190b1990c405874fa5c06eccc987346,
-    type: 3}
+  enemyBoids: []
+  pursueRange: 50
 --- !u!1001 &5252521110735814087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60,6 +62,11 @@ PrefabInstance:
         type: 3}
       propertyPath: weight
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2710227527373410010, guid: 1c750a691ed2de949913a559cb0bec76,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4819190400548701302, guid: 1c750a691ed2de949913a559cb0bec76,
         type: 3}
@@ -135,6 +142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Boid Variant Pred
+      objectReference: {fileID: 0}
+    - target: {fileID: 5385361158851803549, guid: 1c750a691ed2de949913a559cb0bec76,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pred
       objectReference: {fileID: 0}
     - target: {fileID: 5385361158851803551, guid: 1c750a691ed2de949913a559cb0bec76,
         type: 3}

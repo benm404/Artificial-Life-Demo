@@ -7,7 +7,7 @@ public class Constrain : SteeringBehavior
 
     private void Start()
     {
-        boid = GetComponent<Boid>();
+       // boid = GetComponent<Boid>();
 
         // Assuming center is assigned through the Inspector or via another script
         // If using a NodePath system like Godot, handle it differently

@@ -2,7 +2,7 @@
 
 public class Flee : SteeringBehavior
 {
-    [SerializeField] private Transform enemyTransform;
+    [SerializeField] private Transform[] enemyTransforms;
     [SerializeField] private float fleeRange = 50f;
 
     private Vector3 force = Vector3.zero;
@@ -19,16 +19,18 @@ public class Flee : SteeringBehavior
             if (force != Vector3.zero)
             {
                 Gizmos.color = color;
-                Gizmos.DrawLine(transform.position, enemyTransform.position);
+                Gizmos.DrawLine(transform.position, ClosestEnemy(enemyTransforms));
             }
         }
     }
 
     public override Vector3 Calculate()
     {
-        if (boid != null && enemyTransform != null)
+        
+
+        if (boid != null && enemyTransforms != null)
         {
-            Vector3 toEnemy = enemyTransform.position - boid.transform.position;
+            Vector3 toEnemy = ClosestEnemy(enemyTransforms) - boid.transform.position;
             float distance = toEnemy.magnitude;
 
             if (distance < fleeRange)
@@ -46,10 +48,34 @@ public class Flee : SteeringBehavior
     {
         boid = GetComponentInParent<Boid>();
         // Find enemy transform if set via serialized field
-        if (enemyTransform == null)
+        if (enemyTransforms == null)
         {
             // Handle null case if necessary
             Debug.LogWarning("Enemy Transform is not assigned.");
+        }
+    }
+
+    private Vector3 ClosestEnemy(Transform[] enemyTransforms)
+    {
+        Vector3 value = Vector3.positiveInfinity;
+        int index = -1;
+        for(int i = 0; i < enemyTransforms.Length; i++)
+        {
+            if((enemyTransforms[i].transform.position - boid.transform.position).magnitude < value.magnitude)
+            {
+                index = i;
+                value = enemyTransforms[i].transform.position;
+            }
+        }
+        return value;
+    }
+
+    private void FixedUpdate()
+    {
+        for (int i = 0; i < prey.Length; i++)
+        {
+            enemyTransforms = new Transform[pred.Length];
+            enemyTransforms[i] = pred[i].transform;
         }
     }
 }

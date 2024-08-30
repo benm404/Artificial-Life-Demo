@@ -6,11 +6,15 @@ public class SteeringBehavior : MonoBehaviour
     [SerializeField] public bool drawGizmos = true;  // Whether to draw gizmos for debugging
     [SerializeField] private bool enabledBehavior = true;  // Whether the behavior is enabled
 
+    [HideInInspector] public GameObject[] prey;
+    [HideInInspector] public GameObject[] pred;
     [HideInInspector] public Boid boid;
 
     public virtual void Awake()
     {
         boid = GetComponentInParent<Boid>();
+        prey = GameObject.FindGameObjectsWithTag("Prey");
+        pred = GameObject.FindGameObjectsWithTag("Pred");
     }
 
     public float Weight
