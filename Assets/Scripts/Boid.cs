@@ -88,11 +88,11 @@ public class Boid : MonoBehaviour
     [SerializeField] private float mass = 1f;
     [SerializeField] private Vector3 force = Vector3.zero;
     [SerializeField] private Vector3 acceleration = Vector3.zero;
-    [SerializeField] private Vector3 velocity = Vector3.zero;
+    [SerializeField] public Vector3 velocity = Vector3.zero;
     [SerializeField] private float speed;
-    [SerializeField] private float maxSpeed = 10f;
+    [SerializeField] public float maxSpeed = 10f;
 
-    private List<SteeringBehavior> behaviors = new List<SteeringBehavior>();
+    public List<SteeringBehavior> behaviors = new List<SteeringBehavior>();
     [SerializeField] private float maxForce = 10f;
     [SerializeField] private float banking = 0.1f;
     [SerializeField] private float damping = 0.1f;
@@ -100,8 +100,8 @@ public class Boid : MonoBehaviour
     [SerializeField] private bool drawGizmos = true;
     [SerializeField] private bool pause = false;
 
-    private bool countNeighbors = false;
-    private List<Boid> neighbors = new List<Boid>();
+    [HideInInspector] public bool countNeighbors = false;
+    public List<Boid> neighbors = new List<Boid>();
 
     private School school;
     private Vector3 newForce = Vector3.zero;
@@ -221,15 +221,10 @@ public class Boid : MonoBehaviour
             }
         }
 
-        if (drawGizmos)
-        {
-            // Implement Debug Drawing of behavior info (optional)
-        }
-
         return forceAccumulator;
     }
 
-    private void CountNeighbors()
+    public void CountNeighbors()
     {
         neighbors.Clear();
 

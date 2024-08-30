@@ -2,11 +2,16 @@
 
 public class SteeringBehavior : MonoBehaviour
 {
-    [SerializeField] private float weight = 1.0f;  // Weight of the behavior
-    [SerializeField] private bool drawGizmos = true;  // Whether to draw gizmos for debugging
+    [SerializeField] public float weight = 1.0f;  // Weight of the behavior
+    [SerializeField] public bool drawGizmos = true;  // Whether to draw gizmos for debugging
     [SerializeField] private bool enabledBehavior = true;  // Whether the behavior is enabled
 
-    private Boid boid;
+    [HideInInspector] public Boid boid;
+
+    public virtual void Awake()
+    {
+        boid = GetComponentInParent<Boid>();
+    }
 
     public float Weight
     {
@@ -24,17 +29,21 @@ public class SteeringBehavior : MonoBehaviour
         }
     }
 
-    protected virtual void OnDrawGizmos()
+    public virtual void OnDrawGizmos()
     {
         // Override this in derived classes to provide custom gizmo drawing
     }
 
     protected virtual void Update()
     {
-        if (drawGizmos && enabledBehavior)
-        {
-            OnDrawGizmos();
-        }
+            foreach (var behavior in boid.behaviors)
+            {
+                if (behavior != null && weight >= behavior.weight)
+                {
+                    drawGizmos = true;
+                }
+                else drawGizmos = false;
+            }
     }
 
     // Example of a calculate method to be overridden in derived classes
